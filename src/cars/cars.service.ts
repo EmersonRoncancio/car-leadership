@@ -1,36 +1,32 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-
-interface Car {
-  id: number;
-  marca: string;
-  modelo: string;
-}
+import { Car } from './interfaces/car.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class CarsService {
   private Carros: Car[] = [
     {
-      id: 1,
+      id: uuidv4(),
       marca: 'Toyota',
       modelo: 'Corolla',
     },
     {
-      id: 2,
+      id: uuidv4(),
       marca: 'Honda',
       modelo: 'Civic',
     },
     {
-      id: 3,
+      id: uuidv4(),
       marca: 'Ford',
       modelo: 'Mustang',
     },
     {
-      id: 4,
+      id: uuidv4(),
       marca: 'Chevrolet',
       modelo: 'Camaro',
     },
     {
-      id: 5,
+      id: uuidv4(),
       marca: 'Nissan',
       modelo: 'Altima',
     },
@@ -40,7 +36,7 @@ export class CarsService {
     return this.Carros;
   }
 
-  getCarroById(id: number) {
+  getCarroById(id: string) {
     const Carro = this.Carros.find((carro) => carro.id === id);
 
     if (!Carro) throw new NotFoundException('El carro no existe');
@@ -54,7 +50,7 @@ export class CarsService {
     return this.Carros;
   }
 
-  updateCarro(carro: any, id: number) {
+  updateCarro(carro: any, id: string) {
     this.Carros = this.Carros.map((car) => {
       if (car.id === id) {
         return {
